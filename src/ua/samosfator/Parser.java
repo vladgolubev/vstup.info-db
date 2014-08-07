@@ -14,16 +14,17 @@ import org.jsoup.select.Elements;
 class Parser {
     private String baseHost = "http://vstup.info/";
     private String baseURL = null;
-    private Parser.Direction direction = null;
+    private Direction direction = null;
     private int year;
+    private HashMap<String, TreeMap<String, String>> all = new HashMap<>();
 
-    HashMap<String, TreeMap<String, String>> all = new HashMap<>();
     public static List<String> names = new ArrayList<>();
-    public static List<String> links = new ArrayList<>();
     public static List<String> city = new ArrayList<>();
     public static List<Integer> places = new ArrayList<>();
-    public static List<String> courseLinks = new ArrayList<>();
     public static List<Double> passingScore = new ArrayList<>();
+    public static List<String> links = new ArrayList<>();
+    public static List<String> courseLinks = new ArrayList<>();
+
 
     Parser(int year, String dir) throws IOException {
         this.baseURL = (baseHost + year);
@@ -31,7 +32,7 @@ class Parser {
         getLinks(year, dir);
 
         Map.Entry<String, String> entry = all.get(dir).firstEntry();
-        this.direction = new Parser.Direction(dir, entry.getKey(), entry.getValue());
+        this.direction = new Direction(dir, entry.getKey(), entry.getValue());
     }
 
     Parser(String dir) throws IOException {
